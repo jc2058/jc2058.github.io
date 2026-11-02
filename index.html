@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Javier Castro | AI and Technology</title>
+<meta name="description" content="Javier Castro: MSc in Robotics and AI. Projects in machine learning, MRI segmentation, robotics and product design.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jc2058.github.io/">
+<meta property="og:title" content="Javier Castro | AI and Technology">
+<meta property="og:description" content="Javier Castro: MSc in Robotics and AI. Projects in machine learning, MRI segmentation, robotics and product design.">
+<meta property="og:image" content="https://jc2058.github.io/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap">
+<style>
+/* Layout: bordered rounded cards on a soft paper ground, pill controls, circular numbers, a tap-through path and one dark band. */
+:root{
+  --bg:#ECEFF1; --surface:#F6F8F9; --ink:#121A22; --muted:#46525C; --grey:#87929B; --line:rgba(18,26,34,.22);
+  --accent:#1F4FD8; --accent-soft:#DCE5FB; --warn:#B4441C; --warn-soft:#F4D9CC; --on-accent:#FFFFFF; --border:var(--ink);
+  --band:#0E1620; --on-band:#EEF2F5; --band-muted:#B5C0C9; --band-accent:#8FB0FF;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#10161C; --surface:#18212A; --ink:#EAF0F4; --muted:#ADB9C3; --grey:#7F8C97; --line:rgba(234,240,244,.24);
+  --accent:#8FB0FF; --accent-soft:#22345C; --warn:#F0946D; --warn-soft:#4B2B1F; --on-accent:#0B1530; --border:#AEBBC6;
+  --band:#060A0E; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#10161C; --surface:#18212A; --ink:#EAF0F4; --muted:#ADB9C3; --grey:#7F8C97; --line:rgba(234,240,244,.24);
+  --accent:#8FB0FF; --accent-soft:#22345C; --warn:#F0946D; --warn-soft:#4B2B1F; --on-accent:#0B1530; --border:#AEBBC6;
+  --band:#060A0E; color-scheme:dark;
+}
+:root[data-lang="es"] .en{display:none!important}
+:root:not([data-lang="es"]) .es{display:none!important}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font:400 1.0625rem/1.55 var(--display)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1140px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+h1,h2,h3,h4{font-family:var(--display);font-weight:700;line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.015em}
+p{margin:0}
+.label{font-weight:700;font-size:.8125rem;line-height:1.4;letter-spacing:.03em;text-transform:uppercase;color:var(--accent)}
+
+.bar-top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 24px;padding-block:12px;align-items:center}
+.top strong{font-weight:700}
+.top nav{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:center}
+.top nav a{color:var(--ink);text-decoration:none;font-size:.9375rem;font-weight:500}
+.top nav a:hover{color:var(--accent)}
+.lang{display:flex;border:1.5px solid var(--border);border-radius:99px;overflow:hidden}
+.lang button{font:600 .75rem var(--display);padding:5px 11px;background:transparent;color:var(--ink);border:0;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:48px;padding-block:52px 40px;align-items:center;border-bottom:1px solid var(--line)}
+.hero>*{min-width:0}
+.hero h1{font-size:clamp(3rem,7.4vw,5.4rem);font-weight:800;letter-spacing:-.045em;line-height:.95}
+.hero h1 span{display:block}
+.hero h1 .surname{color:var(--grey)}
+.claim{font-weight:500;font-size:clamp(1.25rem,2.2vw,1.5rem);line-height:1.25;margin-block:24px 16px;max-width:24em}
+.lede{font-size:1.0625rem;max-width:34em;color:var(--muted)}
+.portrait{aspect-ratio:4/5;background:var(--accent);color:var(--on-accent);display:flex;align-items:flex-end;padding:20px;font:800 5rem/1 var(--display);width:100%;border:3px solid var(--border);border-radius:26px;box-shadow:0 18px 40px rgba(10,20,30,.16);letter-spacing:-.04em}
+
+.pillars-head{margin-block:24px 16px}
+.pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.pillar{padding:22px;border:3px solid var(--border);border-radius:26px}
+.pillar h2{font-size:1.0625rem;font-weight:600;letter-spacing:0;line-height:1.3;margin-top:6px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-block:36px 12px;justify-items:center}
+.stat{width:min(100%,232px);aspect-ratio:1;border:3px solid var(--border);border-radius:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px}
+.stat b{font-weight:800;font-size:1.75rem;line-height:1.1;color:var(--accent);white-space:nowrap;letter-spacing:-.02em}
+.stat b.small{font-size:1.4375rem}
+.stat span{font-size:.875rem;line-height:1.25;margin-top:6px}
+
+section{padding-block:60px}
+.sec-head{margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.sec-head h2{font-size:clamp(2rem,3.8vw,2.75rem)}
+.sec-head p{color:var(--muted);margin-top:10px;max-width:38em}
+
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px}
+.tabs button{font:600 .9688rem var(--display);padding:9px 18px;background:transparent;color:var(--ink);border:1.5px solid var(--border);border-radius:99px;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.prose{display:grid;gap:14px;align-content:start}
+.prose p{max-width:44em}
+.prose b{font-weight:700}
+.about .prose{max-width:46em}
+
+.path-intro{margin-bottom:26px}
+.stops{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));row-gap:26px}
+.stops button{display:block;width:100%;height:100%;text-align:left;background:none;border:0;border-top:3px solid var(--ink);padding:18px 18px 4px 0;color:inherit;font:inherit;cursor:pointer;position:relative}
+.stops button::before{content:"";position:absolute;left:0;top:-11px;width:19px;height:19px;border-radius:50%;background:var(--bg);border:3px solid var(--accent)}
+.stops button[aria-pressed="true"]::before{background:var(--accent)}
+.stops .y{display:block;font-weight:700;font-size:.8125rem;color:var(--accent)}
+.stops .t{display:block;font-weight:700;line-height:1.2;margin-block:2px}
+.stops .s{display:block;font-size:.875rem;line-height:1.3;color:var(--muted)}
+.stops button:hover .t{color:var(--accent)}
+.stop-detail{margin-top:30px;padding:24px;border:3px solid var(--border);border-radius:26px;display:grid;grid-template-columns:130px minmax(0,1fr);gap:8px 20px}
+.stop-detail .y{font-weight:700;color:var(--accent)}
+.stop-detail h3{font-size:1.375rem;margin-bottom:8px}
+.stop-detail p{max-width:44em}
+
+.entry{padding:22px 24px;border:3px solid var(--border);border-radius:26px;display:grid;grid-template-columns:150px minmax(0,1fr);gap:8px 24px}
+.entry+.entry{margin-top:16px}
+.entry .when{font-size:.875rem;line-height:1.5;font-weight:600;color:var(--accent)}
+.entry h3{font-size:1.25rem;margin-bottom:2px}
+.entry .org{color:var(--muted);margin-bottom:8px;display:block}
+.entry ul{margin:0;padding-left:18px;display:grid;gap:6px}
+
+.project{padding:26px;border:3px solid var(--border);border-radius:26px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:36px}
+.project+.project{margin-top:18px}
+.project>*{min-width:0}
+.project h3{font-size:1.5rem;margin-block:8px 14px}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 0;padding:0;list-style:none}
+.tags li{font-size:.8125rem;font-weight:600;background:var(--accent);color:var(--on-accent);padding:4px 11px;border-radius:99px}
+.link{display:inline-block;margin-top:14px;font-weight:700}
+.evidence{background:var(--surface);border-radius:18px;padding:20px;align-self:start}
+.evidence h4{font-size:1.125rem;margin:4px 0}
+.evidence>p{color:var(--muted);font-size:.9375rem}
+.scores{display:grid;gap:14px;margin:16px 0 6px;padding:0;list-style:none}
+.score-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.score-head b{font-weight:600;font-size:1rem}
+.num{font-weight:800;font-size:1.1875rem;font-variant-numeric:tabular-nums}
+.false-num{color:var(--warn)}
+.track{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-block:4px}
+.bar{height:100%;background:var(--accent)}
+.bar.false{background:repeating-linear-gradient(135deg,var(--warn) 0 5px,var(--warn-soft) 5px 9px)}
+.score small{color:var(--muted);font-size:.875rem;line-height:1.35;display:block}
+.axis{display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted);border-top:1px solid var(--line);padding-top:4px}
+.fact-list{margin:0;display:grid;gap:12px;align-content:start}
+.fact-list div{border-top:1px solid var(--line);padding-top:8px}
+.fact-list dt{font-weight:800;font-size:1.25rem;color:var(--accent)}
+.fact-list dd{margin:0;color:var(--muted);font-size:.9375rem;line-height:1.35}
+
+.groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;counter-reset:g}
+.groups>*{min-width:0}
+.group{padding:26px;border:3px solid var(--border);border-radius:26px;counter-increment:g}
+.group::before{content:"0" counter(g);display:block;font-weight:700;font-size:.8125rem;color:var(--accent);margin-bottom:10px}
+.group h3{font-size:1.375rem;margin-bottom:8px}
+.group>p{color:var(--muted);margin-bottom:6px}
+
+.langs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 40px}
+.langs>*{min-width:0}
+.mini{padding:18px 22px;border:3px solid var(--border);border-radius:22px}
+.mini+.mini{margin-top:12px}
+.mini b{font-weight:700;display:block}
+.mini span{color:var(--muted);font-size:.9688rem}
+
+.band{background:var(--band);color:var(--on-band)}
+.band .sec-head{border-color:rgba(238,242,245,.25)}
+.band-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:48px}
+.band-grid>*{min-width:0}
+.band .prose{color:var(--on-band)}
+.band-quote{font-weight:700;font-size:clamp(1.5rem,2.6vw,2rem);line-height:1.15;letter-spacing:-.015em;align-self:start}
+.band-quote::before{content:"";display:block;width:44px;height:3px;background:var(--band-accent);margin-bottom:18px}
+
+.contact .wrap{padding-block:60px 44px}
+.contact h2{font-size:clamp(2rem,3.8vw,2.75rem);margin-bottom:12px}
+.contact .invite{color:var(--muted);max-width:36em;margin-bottom:24px}
+.contact-list{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;padding:20px 24px;border:3px solid var(--border);border-radius:26px}
+.contact-list a{font-weight:700}
+.mail-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;min-width:0}
+.mail{font-weight:600;overflow-wrap:anywhere}
+.copy{font:600 .875rem var(--display);background:transparent;color:inherit;border:1.5px solid var(--border);border-radius:99px;padding:4px 12px;cursor:pointer}
+footer{padding-block:18px 28px;color:var(--muted);font-size:.875rem;border-top:1px solid var(--line)}
+
+@media (max-width:980px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:860px){
+  .hero{grid-template-columns:minmax(0,1fr) 112px;gap:16px;padding-block:24px 30px;align-items:start}
+  .hero .intro{display:contents}
+  .hero h1{grid-column:1;font-size:clamp(2.7rem,13vw,4.5rem)}
+  .portrait{grid-column:2;grid-row:1;font-size:2.25rem;padding:10px;border-radius:18px}
+  .claim,.lede{grid-column:1/-1}.claim{margin-block:6px 0}
+  .project,.groups,.langs,.band-grid{grid-template-columns:minmax(0,1fr);gap:18px}
+  .band-grid{gap:30px}
+  .entry{grid-template-columns:minmax(0,1fr)}
+  section{padding-block:46px}
+}
+@media (max-width:720px){
+  .pillars{grid-template-columns:minmax(0,1fr)}
+  .stops{grid-template-columns:minmax(0,1fr);row-gap:0;padding-left:8px}
+  .stops li{grid-column:1!important;grid-row:auto!important}
+  .stops button{border-top:0;border-left:3px solid var(--ink);padding:0 0 20px 22px}
+  .stops button::before{left:-11px;top:2px}
+  .stop-detail{grid-template-columns:minmax(0,1fr);padding:20px}
+  .project,.group{padding:20px}
+  .stat{padding:14px}.stat b{font-size:1.4375rem}.stat b.small{font-size:1.125rem}.stat span{font-size:.8125rem}
+}
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head>
+<body>
+<div class="bar-top"><div class="wrap top">
+  <strong>Javier Castro</strong>
+  <nav aria-label="Page sections">
+    <a href="#story"><span class="en">Profile</span><span class="es">Perfil</span></a>
+    <a href="#skills"><span class="en">Skills</span><span class="es">Aptitudes</span></a>
+    <a href="#languages"><span class="en">Languages</span><span class="es">Idiomas</span></a>
+    <a href="#contact"><span class="en">Contact</span><span class="es">Contacto</span></a>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" id="lang-en" aria-pressed="true">EN</button>
+      <button type="button" id="lang-es" aria-pressed="false">ES</button>
+    </div>
+  </nav>
+</div></div>
+
+<main>
+  <div class="wrap">
+    <div class="hero">
+      <div class="intro">
+        <h1><span>Javier</span><span class="surname">Castro</span></h1>
+        <p class="claim en">I build AI systems, then test whether the results hold up.</p>
+        <p class="claim es">Creo sistemas de IA y compruebo si sus resultados se sostienen.</p>
+        <p class="lede en">MSc in Robotics and AI at Queen Mary University of London, after a BSc in Computer Science and AI at Sussex. Looking for AI consulting and technology roles. Based in London.</p>
+        <p class="lede es">Máster en Robótica e IA en Queen Mary University of London, tras un grado en Informática e IA en Sussex. Busco puestos de consultoría de IA y tecnología. Vivo en Londres.</p>
+      </div>
+      <div class="portrait" role="img" aria-label="Javier Castro initials">JC</div>
+    </div>
+
+    <p class="pillars-head en">My work brings together three strengths:</p>
+    <p class="pillars-head es">Mi trabajo combina tres puntos fuertes:</p>
+    <div class="pillars">
+      <div class="pillar"><span class="label">AI</span>
+        <h2 class="en">I check that a good score means something.</h2>
+        <h2 class="es">Compruebo que una buena puntuación signifique algo.</h2></div>
+      <div class="pillar"><span class="label"><span class="en">Users</span><span class="es">Usuarios</span></span>
+        <h2 class="en">I let what people actually do shape the solution.</h2>
+        <h2 class="es">Dejo que lo que la gente hace dé forma a la solución.</h2></div>
+      <div class="pillar"><span class="label"><span class="en">Engineering</span><span class="es">Ingeniería</span></span>
+        <h2 class="en">I take ideas through to something that runs.</h2>
+        <h2 class="es">Llevo las ideas hasta algo que funciona.</h2></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>1,015</b><span class="en">data windows analysed for stress detection</span><span class="es">ventanas de datos analizadas para detectar estrés</span></div>
+      <div class="stat"><b class="small">0.58 → 0.725</b><span class="en">F1 gain, tested on people the model had never seen</span><span class="es">mejora de F1 con personas que el modelo no había visto</span></div>
+      <div class="stat"><b>41</b><span class="en">people surveyed for my Madrid transport app</span><span class="es">personas encuestadas para mi app de transporte</span></div>
+      <div class="stat"><b>7</b><span class="en">payload ratios tested on my robot arm controller</span><span class="es">relaciones de carga probadas en mi control de brazo robótico</span></div>
+    </div>
+  </div>
+
+  <section id="story">
+    <div class="wrap">
+      <div class="tabs" role="tablist" aria-label="Profile sections">
+        <button role="tab" type="button" id="t-about" aria-controls="p-about" aria-selected="true"><span class="en">About</span><span class="es">Sobre mí</span></button>
+        <button role="tab" type="button" id="t-path" aria-controls="p-path" aria-selected="false"><span class="en">The path</span><span class="es">Trayectoria</span></button>
+        <button role="tab" type="button" id="t-projects" aria-controls="p-projects" aria-selected="false"><span class="en">Projects</span><span class="es">Proyectos</span></button>
+        <button role="tab" type="button" id="t-experience" aria-controls="p-experience" aria-selected="false"><span class="en">Experience</span><span class="es">Experiencia</span></button>
+        <button role="tab" type="button" id="t-education" aria-controls="p-education" aria-selected="false"><span class="en">Education</span><span class="es">Formación</span></button>
+      </div>
+
+      <div role="tabpanel" id="p-about" aria-labelledby="t-about">
+        <div class="about">
+          <div class="prose en">
+            <p>Hi, I'm Javier. I grew up in Madrid and came to the UK to study Computer Science and AI at the University of Sussex, then an MSc in Robotics and AI at Queen Mary University of London.</p>
+            <p>My projects cover different ground: machine learning on physiological signals, MRI segmentation with limited data, a transport app shaped by user research, and control of a simulated robot arm. In each one, I had to understand the problem properly before building anything.</p>
+            <p>The moment that stayed with me came during my dissertation. An early model scored a perfect 1.00, and I wanted to know why before trusting it. The answer was a flaw in how it was tested. That's the kind of question I want to keep asking in AI consulting: does this result hold up, and can the people relying on it understand why?</p>
+            <p>Away from a screen, I've spent over 10 years playing basketball with the Madrid Basketball Federation, and I've refereed competitive games too.</p>
+          </div>
+          <div class="prose es">
+            <p>Hola, soy Javier. Crecí en Madrid y vine a Reino Unido para estudiar Informática e IA en la Universidad de Sussex y, después, un máster en Robótica e IA en Queen Mary University of London.</p>
+            <p>Mis proyectos abarcan campos distintos: aprendizaje automático con señales fisiológicas, segmentación de resonancias con pocos datos, una app de transporte basada en investigación con usuarios y el control de un brazo robótico simulado. En todos tuve que entender bien el problema antes de construir nada.</p>
+            <p>El momento que más me marcó llegó durante mi trabajo de fin de máster. Un primer modelo obtuvo un 1,00 perfecto y quise saber por qué antes de fiarme. La respuesta era un fallo en la forma de evaluarlo. Esa es la pregunta que quiero seguir haciendo en consultoría de IA: ¿se sostiene este resultado, y lo entienden quienes dependen de él?</p>
+            <p>Fuera de la pantalla, llevo más de 10 años jugando al baloncesto con la Federación de Baloncesto de Madrid, y también he arbitrado partidos de competición.</p>
+          </div>
+        </div>
+      </div>
+
+      <div role="tabpanel" id="p-path" aria-labelledby="t-path" hidden>
+        <p class="path-intro"><span class="en">Nine stops so far. Tap any of them for more.</span><span class="es">Nueve paradas hasta ahora. Toca cualquiera para ver más.</span></p>
+        <ol class="stops" id="stops"></ol>
+        <div class="stop-detail" id="stop-detail" aria-live="polite"></div>
+      </div>
+
+      <div role="tabpanel" id="p-projects" aria-labelledby="t-projects" hidden>
+        <article class="project">
+          <div>
+            <span class="label"><span class="en">MSc dissertation · 2026 · Machine learning</span><span class="es">Trabajo de fin de máster · 2026 · Aprendizaje automático</span></span>
+            <h3 class="en">Detecting stress from a wrist-worn wearable</h3>
+            <h3 class="es">Detección de estrés con un dispositivo de muñeca</h3>
+            <div class="prose en">
+              <p><b>The question.</b> Can wrist signals identify stress in someone the model has never seen, and which signals and features make the difference?</p>
+              <p><b>What I did.</b> I built a Python pipeline on the public WESAD dataset, from segmenting raw signals to feature extraction and a Random Forest classifier. I tested it with Leave-One-Subject-Out cross-validation, holding out each participant in turn.</p>
+              <p><b>What I found.</b> An early model's perfect score came from temporal leakage: the study's conditions ran in a largely fixed order, so slowly drifting signals such as skin temperature gave away the time in the session. Features grounded in physiology then improved the realistic score for 10 of the 15 participants.</p>
+              <p><b>What it can't do yet.</b> It has only been tested on laboratory data, and it failed completely for one participant.</p>
+            </div>
+            <div class="prose es">
+              <p><b>La pregunta.</b> ¿Pueden las señales de muñeca identificar el estrés en alguien que el modelo nunca ha visto, y qué señales y variables marcan la diferencia?</p>
+              <p><b>Qué hice.</b> Desarrollé un flujo de análisis en Python con el conjunto de datos público WESAD, desde la segmentación de las señales hasta la extracción de variables y un clasificador Random Forest. Lo evalué con validación cruzada Leave-One-Subject-Out, dejando fuera a cada participante por turnos.</p>
+              <p><b>Qué descubrí.</b> La puntuación perfecta de un primer modelo se debía a una fuga temporal: las condiciones del estudio seguían un orden en gran parte fijo, así que señales de variación lenta, como la temperatura de la piel, delataban el momento de la sesión. Las variables fisiológicas mejoraron después la puntuación realista en 10 de los 15 participantes.</p>
+              <p><b>Qué no puede hacer todavía.</b> Solo se ha probado con datos de laboratorio y falló por completo con un participante.</p>
+            </div>
+            <ul class="tags"><li>Python</li><li>scikit-learn</li><li>Random Forest</li><li><span class="en">Signal processing</span><span class="es">Procesamiento de señales</span></li></ul>
+            <a class="link" href="https://github.com/jc2058/Msc-Final-Project"><span class="en">Read the dissertation on GitHub</span><span class="es">Leer el trabajo en GitHub</span></a>
+          </div>
+          <aside class="evidence">
+            <span class="label"><span class="en">Results</span><span class="es">Resultados</span></span>
+            <h4 class="en">When a perfect score was wrong</h4>
+            <h4 class="es">Cuando una puntuación perfecta era errónea</h4>
+            <p class="en">F1 scores. A score of 1.00 is perfect.</p>
+            <p class="es">Puntuaciones F1. Un 1,00 es perfecto.</p>
+            <ul class="scores">
+              <li class="score"><div class="score-head"><b class="en">Random split, one person</b><b class="es">División aleatoria, una persona</b><span class="num false-num">1.00</span></div>
+                <div class="track"><div class="bar false" style="width:100%"></div></div>
+                <small class="en">Inflated by temporal leakage.</small><small class="es">Inflada por la fuga temporal.</small></li>
+              <li class="score"><div class="score-head"><b class="en">Tested on unseen people</b><b class="es">Evaluado con personas nuevas</b><span class="num">0.58</span></div>
+                <div class="track"><div class="bar" style="width:58%"></div></div>
+                <small class="en">The realistic starting point, across 15 participants.</small><small class="es">El punto de partida realista, con 15 participantes.</small></li>
+              <li class="score"><div class="score-head"><b class="en">With physiological features</b><b class="es">Con variables fisiológicas</b><span class="num">0.725</span></div>
+                <div class="track"><div class="bar" style="width:72.5%"></div></div>
+                <small class="en">Same strict test, adding heart rate, HRV and skin response features.</small><small class="es">La misma prueba estricta, añadiendo frecuencia cardiaca, VFC y respuesta de la piel.</small></li>
+            </ul>
+            <div class="axis" aria-hidden="true"><span>0</span><span>0.5</span><span>1.0</span></div>
+          </aside>
+        </article>
+
+        <article class="project">
+          <div>
+            <span class="label"><span class="en">MSc group project · 2026 · Deep learning</span><span class="es">Proyecto de grupo de máster · 2026 · Aprendizaje profundo</span></span>
+            <h3 class="en">Segmenting MRI scans from very few examples</h3>
+            <h3 class="es">Segmentación de resonancias con muy pocos ejemplos</h3>
+            <div class="prose en">
+              <p>Labelled medical images are scarce and slow to produce. In a team of four, we tested whether meta-learning with the Reptile algorithm could help a compact U-Net adapt to new anatomical structures using only 1–5 labelled examples.</p>
+              <p>We compared it with a supervised baseline across three random seeds. Reptile scored higher on Dice with 1 and 3 examples on unseen tasks, but lost that lead at 5 examples and trailed on IoU throughout. Scores stayed low and varied widely, so the report treats this as a limited early result and proposes specific next steps.</p>
+            </div>
+            <div class="prose es">
+              <p>Las imágenes médicas etiquetadas son escasas y lentas de producir. En un equipo de cuatro, comprobamos si el metaaprendizaje con el algoritmo Reptile podía ayudar a una U-Net compacta a adaptarse a nuevas estructuras anatómicas con solo 1–5 ejemplos etiquetados.</p>
+              <p>Lo comparamos con un modelo supervisado de referencia usando tres semillas aleatorias. Reptile obtuvo mejor Dice con 1 y 3 ejemplos en tareas no vistas, pero perdió esa ventaja con 5 y quedó por detrás en IoU en todos los casos. Las puntuaciones fueron bajas y muy variables, así que el informe lo trata como un resultado inicial limitado y propone mejoras concretas.</p>
+            </div>
+            <ul class="tags"><li>PyTorch</li><li>U-Net</li><li><span class="en">Meta-learning</span><span class="es">Metaaprendizaje</span></li><li><span class="en">Medical imaging</span><span class="es">Imagen médica</span></li></ul>
+            <a class="link" href="https://github.com/jc2058/-Few-Shot-Anatomical-Segmentation-in-Abdominal-MRI-via-the-Reptile-Meta-Learning-Algorithm-"><span class="en">Read the report on GitHub</span><span class="es">Leer el informe en GitHub</span></a>
+          </div>
+          <dl class="fact-list">
+            <div><dt>0.146 vs 0.120</dt><dd class="en">Dice, Reptile vs baseline, with 1 example on unseen tasks</dd><dd class="es">Dice, Reptile frente a referencia, con 1 ejemplo en tareas no vistas</dd></div>
+            <div><dt>0.153 vs 0.134</dt><dd class="en">Dice with 3 examples, the same comparison</dd><dd class="es">Dice con 3 ejemplos, la misma comparación</dd></div>
+            <div><dt>0.126 vs 0.136</dt><dd class="en">Dice with 5 examples, where the baseline moved ahead</dd><dd class="es">Dice con 5 ejemplos, donde la referencia pasó por delante</dd></div>
+          </dl>
+        </article>
+
+        <article class="project">
+          <div>
+            <span class="label"><span class="en">BSc final project · 2025 · Product and UX</span><span class="es">Trabajo de fin de grado · 2025 · Producto y UX</span></span>
+            <h3 class="en">An all-in-one sustainable transport app for Madrid</h3>
+            <h3 class="es">Una app integral de transporte sostenible para Madrid</h3>
+            <div class="prose en">
+              <p>I reviewed Madrid's transport services and surveyed 41 people about how they travel. Cost, journey time and comfort mattered most to respondents, and sustainability came second to practicality.</p>
+              <p>I used those findings to design a Figma prototype with route planning across transport types and carbon tracking. Two rounds of user testing led to clearer onboarding, navigation and visual hierarchy. I then exported the design to React and refactored the code to make it easier to maintain.</p>
+            </div>
+            <div class="prose es">
+              <p>Analicé los servicios de transporte de Madrid y encuesté a 41 personas sobre cómo se desplazan. El coste, la duración del trayecto y la comodidad fueron lo más importante para ellas, y la sostenibilidad quedó por detrás de lo práctico.</p>
+              <p>Con esos resultados diseñé un prototipo en Figma con planificación de rutas entre distintos transportes y seguimiento de la huella de carbono. Dos rondas de pruebas con usuarios mejoraron la bienvenida, la navegación y la jerarquía visual. Después exporté el diseño a React y refactoricé el código para facilitar su mantenimiento.</p>
+            </div>
+            <ul class="tags"><li><span class="en">User research</span><span class="es">Investigación con usuarios</span></li><li>Figma</li><li>React</li></ul>
+            <a class="link" href="https://www.figma.com/design/lAObfYJ0OWVSOcGILlZNL5/Untitled?node-id=0-1&amp;t=Vw2nRhXrDgT0uMKc-1"><span class="en">View the prototype in Figma</span><span class="es">Ver el prototipo en Figma</span></a><br><a class="link" href="https://github.com/jc2058/TFG"><span class="en">Read the report on GitHub</span><span class="es">Leer el informe en GitHub</span></a>
+          </div>
+          <dl class="fact-list">
+            <div><dt>26 / 41</dt><dd class="en">respondents never used shared mobility services</dd><dd class="es">encuestados nunca usaban servicios de movilidad compartida</dd></div>
+            <div><dt>15</dt><dd class="en">answers named safety as a barrier, the most common one</dd><dd class="es">respuestas señalaron la seguridad como barrera, la más citada</dd></div>
+            <div><dt>14</dt><dd class="en">votes for better integration with public transport, the top request</dd><dd class="es">votos pidieron mejor integración con el transporte público, la petición principal</dd></div>
+          </dl>
+        </article>
+
+        <article class="project">
+          <div>
+            <span class="label"><span class="en">MSc coursework · 2025–2026 · Robotics</span><span class="es">Trabajo de máster · 2025–2026 · Robótica</span></span>
+            <h3 class="en">Simulating a two-link robot arm</h3>
+            <h3 class="es">Simulación de un brazo robótico de dos eslabones</h3>
+            <div class="prose en">
+              <p>I modelled a nonlinear two-link robot arm in MATLAB/Simulink and built a computed torque controller to follow target joint movements. I tested it across seven tip-mass ratios, from 0 to 10, and in a move split into eight 30° steps to reflect limited motor capability.</p><p>The controller linearised and decoupled the dynamics, and tracking remained satisfactory as the payload increased, with higher torque demand and more overshoot. Mismatch tests showed its weakness: even small errors in the assumed payload degraded tracking.</p>
+            </div>
+            <div class="prose es">
+              <p>Modelé un brazo robótico no lineal de dos eslabones en MATLAB/Simulink y creé un controlador de par calculado para seguir movimientos articulares objetivo. Lo probé con siete relaciones de masa en el extremo, de 0 a 10, y en un movimiento dividido en ocho pasos de 30° para reflejar la capacidad limitada del motor.</p><p>El controlador linealizó y desacopló la dinámica, y el seguimiento siguió siendo satisfactorio al aumentar la carga, con mayor demanda de par y más sobreimpulso. Las pruebas de discrepancia mostraron su punto débil: incluso pequeños errores en la carga supuesta empeoraban el seguimiento.</p>
+            </div>
+            <ul class="tags"><li>MATLAB</li><li>Simulink</li><li><span class="en">Control systems</span><span class="es">Sistemas de control</span></li></ul>
+            <a class="link" href="https://github.com/jc2058/Simulation-of-a-two-link-planar-anthropomorphic-simulator"><span class="en">View the model and report on GitHub</span><span class="es">Ver el modelo y el informe en GitHub</span></a>
+          </div>
+          <div class="prose">
+            <span class="label"><span class="en">Also</span><span class="es">Además</span></span>
+            <p class="en">I gave a university presentation on Generative Adversarial Networks, explaining how they work and where they're used in image generation, style transfer and anomaly detection.</p>
+            <p class="es">Hice una presentación universitaria sobre redes generativas antagónicas (GAN), explicando cómo funcionan y sus usos en generación de imágenes, transferencia de estilo y detección de anomalías.</p>
+          </div>
+        </article>
+      </div>
+
+      <div role="tabpanel" id="p-experience" aria-labelledby="t-experience" hidden>
+        <div class="entry"><span class="when">Madrid</span><div>
+          <h3 class="en">Camp counsellor</h3><h3 class="es">Monitor de campamento</h3>
+          <span class="org">Forenex</span>
+          <ul class="en"><li>Ran recreational activities and team-building exercises for campers.</li><li>Provided emotional support and resolved conflicts to keep the environment safe and inclusive.</li><li>Worked with other counsellors to develop and deliver the programme.</li></ul>
+          <ul class="es"><li>Organicé actividades recreativas y dinámicas de equipo para los participantes.</li><li>Ofrecí apoyo emocional y resolví conflictos para mantener un entorno seguro e inclusivo.</li><li>Colaboré con otros monitores para desarrollar y llevar a cabo el programa.</li></ul>
+        </div></div>
+        <div class="entry"><span class="when"><span class="en">Jan–May 2020</span><span class="es">Ene–may 2020</span><br>Madrid</span><div>
+          <h3 class="en">Basketball referee</h3><h3 class="es">Árbitro de baloncesto</h3>
+          <span class="org"><span class="en">Madrid Basketball Federation</span><span class="es">Federación de Baloncesto de Madrid</span></span>
+          <ul class="en"><li>Officiated matches and upheld fair play with fellow officials.</li><li>Explained decisions to players, coaches and spectators during high-intensity games.</li></ul>
+          <ul class="es"><li>Arbitré partidos y velé por el juego limpio junto con otros árbitros.</li><li>Expliqué mis decisiones a jugadores, entrenadores y público en partidos de alta intensidad.</li></ul>
+        </div></div>
+      </div>
+
+      <div role="tabpanel" id="p-education" aria-labelledby="t-education" hidden>
+        <div class="entry"><span class="when">2025–2026<br><span class="en">London</span><span class="es">Londres</span></span><div>
+          <h3 class="en">MSc Robotics and Artificial Intelligence</h3><h3 class="es">Máster en Robótica e Inteligencia Artificial</h3>
+          <span class="org">Queen Mary University of London</span>
+          <p class="en">Dissertation on non-invasive stress monitoring with physiological data and machine learning.</p>
+          <p class="es">Trabajo de fin de máster sobre monitorización no invasiva del estrés con datos fisiológicos y aprendizaje automático.</p>
+        </div></div>
+        <div class="entry"><span class="when">2022–2025<br>Brighton</span><div>
+          <h3 class="en">BSc Computer Science and Artificial Intelligence</h3><h3 class="es">Grado en Informática e Inteligencia Artificial</h3>
+          <span class="org">University of Sussex</span>
+          <p class="en">Final project on user interfaces for behaviour change towards sustainable mobility.</p>
+          <p class="es">Trabajo de fin de grado sobre interfaces de usuario para fomentar la movilidad sostenible.</p>
+        </div></div>
+        <div class="entry"><span class="when">2016–2022<br>Madrid</span><div>
+          <h3 class="en">Baccalaureate in Technical Sciences</h3><h3 class="es">Bachillerato de Ciencias y Tecnología</h3>
+          <span class="org">Colegio Estudio</span>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="en">Tools and capabilities</h2><h2 class="es">Herramientas y capacidades</h2>
+      </div>
+      <div class="groups">
+        <div class="group"><h3 class="en">AI and data</h3><h3 class="es">IA y datos</h3>
+          <p class="en">Building models and checking the evidence behind them.</p><p class="es">Crear modelos y comprobar la evidencia que los respalda.</p>
+          <ul class="tags"><li>Python</li><li>PyTorch</li><li>scikit-learn</li><li>NumPy</li><li>SQL</li><li><span class="en">Model evaluation</span><span class="es">Evaluación de modelos</span></li></ul></div>
+        <div class="group"><h3 class="en">Software</h3><h3 class="es">Software</h3>
+          <p class="en">Turning designs and ideas into working code.</p><p class="es">Convertir diseños e ideas en código que funciona.</p>
+          <ul class="tags"><li>Java</li><li>JavaScript</li><li>React</li><li>React Router</li></ul></div>
+        <div class="group"><h3 class="en">Product and users</h3><h3 class="es">Producto y usuarios</h3>
+          <p class="en">Understanding what people need and testing ideas with them.</p><p class="es">Entender lo que la gente necesita y probar ideas con ella.</p>
+          <ul class="tags"><li>Figma</li><li><span class="en">Surveys</span><span class="es">Encuestas</span></li><li><span class="en">Usability testing</span><span class="es">Pruebas de usabilidad</span></li><li>Excel</li></ul></div>
+        <div class="group"><h3 class="en">Robotics and simulation</h3><h3 class="es">Robótica y simulación</h3>
+          <p class="en">Modelling how physical systems behave.</p><p class="es">Modelar el comportamiento de sistemas físicos.</p>
+          <ul class="tags"><li>MATLAB</li><li>Simulink</li><li><span class="en">System dynamics</span><span class="es">Dinámica de sistemas</span></li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="languages">
+    <div class="wrap"><div class="langs">
+      <div>
+        <div class="sec-head" style="margin-bottom:16px"><h2 class="en">Languages</h2><h2 class="es">Idiomas</h2></div>
+        <div class="mini"><b class="en">Spanish</b><b class="es">Español</b><span class="en">Native</span><span class="es">Lengua materna</span></div>
+        <div class="mini"><b class="en">English</b><b class="es">Inglés</b><span class="en">Cambridge First B2, IELTS B2, four years of university study in the UK</span><span class="es">Cambridge First B2, IELTS B2, cuatro años de estudios universitarios en Reino Unido</span></div>
+      </div>
+      <div>
+        <div class="sec-head" style="margin-bottom:16px"><h2 class="en">Courses</h2><h2 class="es">Cursos</h2></div>
+        <div class="mini"><b>Global Design Challenge</b><span>University of Sussex</span></div>
+        <div class="mini"><b>Excel Skills for Business</b><span>Coursera</span></div>
+      </div>
+    </div></div>
+  </section>
+<section class="band" id="curious">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="en">What keeps me asking questions</h2><h2 class="es">Lo que me hace seguir preguntando</h2></div>
+      <div class="band-grid">
+        <div class="prose en">
+          <p>Across my projects, the most useful moments came when a first answer turned out to be incomplete. A perfect model score hid a testing flaw. Survey respondents cared about sustainability, but chose transport on cost, time and comfort. A robot controller worked well until its model of the payload was slightly wrong.</p>
+          <p>That's what draws me to AI consulting. Organisations need people who can build with these tools, test the claims around them and explain the limits plainly.</p>
+        </div>
+        <div class="prose es">
+          <p>En mis proyectos, los momentos más útiles llegaron cuando una primera respuesta resultó ser incompleta. Una puntuación perfecta ocultaba un fallo de evaluación. A los encuestados les importaba la sostenibilidad, pero elegían el transporte por coste, tiempo y comodidad. Un controlador robótico funcionaba bien hasta que su modelo de la carga era ligeramente erróneo.</p>
+          <p>Por eso me atrae la consultoría de IA. Las organizaciones necesitan personas que sepan construir con estas herramientas, comprobar lo que se dice de ellas y explicar sus límites con claridad.</p>
+        </div>
+        <p class="band-quote"><span class="en">A good result only matters if it still holds when the conditions change.</span><span class="es">Un buen resultado solo importa si se mantiene cuando cambian las condiciones.</span></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="contact" id="contact">
+  <div class="wrap">
+    <h2 class="en">Get in touch</h2><h2 class="es">Hablemos</h2>
+    <p class="invite en">If your team is building or adopting AI, I'd be glad to talk.</p>
+    <p class="invite es">Si tu equipo está creando o adoptando IA, me encantaría hablar contigo.</p>
+    <div class="contact-list">
+      <div class="mail-row"><span class="mail" id="mail">20jav04@gmail.com</span>
+        <button class="copy" id="copy-mail" type="button"><span class="en">Copy email</span><span class="es">Copiar correo</span></button></div>
+      <a href="https://www.linkedin.com/in/javier-castro-6536b0295">LinkedIn</a>
+      <a href="https://github.com/jc2058">GitHub</a>
+    </div>
+  </div>
+</div>
+<footer class="wrap"><span class="en">Javier Castro · London</span><span class="es">Javier Castro · Londres</span></footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var steps=[
+    {y:['2016–2022','2016–2022'],t:['Baccalaureate','Bachillerato'],s:['Colegio Estudio, Madrid','Colegio Estudio, Madrid'],d:['I studied the Baccalaureate in Technical Sciences in Madrid.','Cursé el Bachillerato de Ciencias y Tecnología en Madrid.']},
+    {y:['2020','2020'],t:['Basketball referee','Árbitro de baloncesto'],s:['Madrid Basketball Federation','Federación de Baloncesto de Madrid'],d:['I officiated matches and explained decisions to players, coaches and spectators during high-intensity games.','Arbitré partidos y expliqué mis decisiones a jugadores, entrenadores y público en encuentros de alta intensidad.']},
+    {y:['2022','2022'],t:['BSc Computer Science and AI','Grado en Informática e IA'],s:['University of Sussex, Brighton','University of Sussex, Brighton'],d:['I moved into computer science and AI at the University of Sussex.','Empecé Informática e IA en la Universidad de Sussex.']},
+    {y:['Apr 2025','Abr 2025'],t:['Madrid transport app','App de transporte de Madrid'],s:['BSc final project','Trabajo de fin de grado'],d:['I surveyed 41 people, designed a prototype in Figma and improved it through two rounds of user testing.','Encuesté a 41 personas, diseñé un prototipo en Figma y lo mejoré con dos rondas de pruebas con usuarios.']},
+    {y:['2025','2025'],t:['MSc Robotics and AI','Máster en Robótica e IA'],s:['Queen Mary University of London','Queen Mary University of London'],d:['I began my master\'s in London, working across robotics, deep learning and applied machine learning.','Empecé el máster en Londres, combinando robótica, aprendizaje profundo y aprendizaje automático aplicado.']},
+    {y:['Nov 2025','Nov 2025'],t:['Robot arm control','Control de brazo robótico'],s:['MSc coursework','Trabajo de máster'],d:['I built a computed torque controller in Simulink and tested how it coped with different payloads and modelling errors.','Creé un controlador de par calculado en Simulink y probé cómo respondía a distintas cargas y errores de modelado.']},
+    {y:['2026','2026'],t:['MRI segmentation','Segmentación de resonancias'],s:['MSc group project','Proyecto de grupo de máster'],d:['In a team of four, I worked on meta-learning for segmenting MRI scans from very few labelled examples.','En un equipo de cuatro, trabajé en metaaprendizaje para segmentar resonancias con muy pocos ejemplos etiquetados.']},
+    {y:['Aug 2026','Ago 2026'],t:['Stress detection dissertation','Trabajo de fin de máster'],s:['F1 of 0.725 on unseen people','F1 de 0,725 con personas nuevas'],d:['I built a machine learning pipeline for wearable data and traced a perfect early score to temporal leakage.','Desarrollé un sistema de aprendizaje automático para datos de wearables y descubrí que un primer resultado perfecto se debía a una fuga temporal.']},
+    {y:['Now','Ahora'],t:['AI and technology roles','Puestos de IA y tecnología'],s:['Looking for my next step in London','Busco mi siguiente paso en Londres'],d:['I\'m looking for AI consulting and technology roles where careful analysis and clear communication both count.','Busco puestos de consultoría de IA y tecnología donde cuenten tanto el análisis riguroso como la comunicación clara.']}
+  ];
+  var stops=document.getElementById('stops'),detail=document.getElementById('stop-detail');
+  function pair(cls,v,tag){return v.map(function(x,l){var e=document.createElement(tag||'span');e.className=cls+' '+(l?'es':'en');e.textContent=x;return e;});}
+  function pick(i){
+    [].forEach.call(stops.querySelectorAll('button'),function(b,j){b.setAttribute('aria-pressed',j===i);});
+    var s=steps[i];detail.textContent='';
+    var left=document.createElement('div');pair('y',s.y).forEach(function(e){left.appendChild(e);});
+    var right=document.createElement('div');pair('',s.t,'h3').forEach(function(e){right.appendChild(e);});pair('',s.d,'p').forEach(function(e){right.appendChild(e);});
+    detail.append(left,right);
+  }
+  steps.forEach(function(s,i){
+    var row=Math.floor(i/3),col=i%3;
+    var li=document.createElement('li');li.style.gridRow=row+1;li.style.gridColumn=col+1;
+    var b=document.createElement('button');b.type='button';
+    ['y','t','s'].forEach(function(k){pair(k,s[k]).forEach(function(e){b.appendChild(e);});});
+    b.addEventListener('click',function(){pick(i);});li.appendChild(b);stops.appendChild(li);
+  });
+  pick(8);
+
+  function setLang(l){
+    root.setAttribute('data-lang',l);root.lang=l;
+    document.getElementById('lang-en').setAttribute('aria-pressed',l==='en');
+    document.getElementById('lang-es').setAttribute('aria-pressed',l==='es');
+    try{localStorage.setItem('jc-lang',l);}catch(e){}
+  }
+  document.getElementById('lang-en').onclick=function(){setLang('en');};
+  document.getElementById('lang-es').onclick=function(){setLang('es');};
+  var saved=null;try{saved=localStorage.getItem('jc-lang');}catch(e){}
+  setLang(saved==='es'?'es':'en');
+
+  var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
+  function show(tab){
+    tabs.forEach(function(t){
+      var on=t===tab;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden=!on;
+    });
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){show(t);});
+    t.addEventListener('keydown',function(e){
+      var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;
+      if(d){var n=tabs[(i+d+tabs.length)%tabs.length];show(n);n.focus();}
+    });
+  });
+  show(tabs[0]);
+
+  document.getElementById('copy-mail').addEventListener('click',function(){
+    var el=document.getElementById('mail');
+    function pick(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(el.textContent).catch(pick);}else{pick();}
+    pick();
+  });
+})();
+</script>
+</body>
+</html>
